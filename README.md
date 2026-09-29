@@ -66,7 +66,7 @@ python port_scanner.py 192.168.1.10 -p 22,80,443 -t 50 --timeout 2
 
 Real run against `scanme.nmap.org` (a host the Nmap project provides for testing):
 
-![Port scanner output](scan-output.png)
+![Port scanner output](Screenshot%202026-09-29%20095128.png)
 ```
 python port_scanner.py scanme.nmap.org -p 20-25,80 -t 10 --timeout 3
 

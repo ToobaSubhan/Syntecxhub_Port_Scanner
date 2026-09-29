@@ -66,8 +66,28 @@ python port_scanner.py 192.168.1.10 -p 22,80,443 -t 50 --timeout 2
 
 Real run against `scanme.nmap.org` (a host the Nmap project provides for testing):
 
+![Port scanner output](screenshots/scan-output.png)
+
 ```
-![Port scanner output](Screenshot 2026-09-29 095128.png)
+python port_scanner.py scanme.nmap.org -p 20-25,80 -t 10 --timeout 3
+
+Scanning scanme.nmap.org (45.33.32.156) - 7 port(s), 10 threads, 3.0s timeout
+Port 22 OPEN  | service: ssh | banner: SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+Port 80 OPEN  | service: http | banner: Server: Apache/2.4.7 (Ubuntu)
+--------------------------------------------------
+Summary for scanme.nmap.org
+--------------------------------------------------
+Open ports (2):
+  22     ssh          SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+  80     http         Server: Apache/2.4.7 (Ubuntu)
+Closed ports:   0
+Filtered ports: 20-21, 23-25
+Time taken: 0:00:03.02
+--------------------------------------------------
+```
+
+Ports 22 and 80 (SSH and HTTP) came back open, matching what Nmap's own documentation says this host keeps open for testing purposes. The other ports in the range came back filtered rather than closed, most likely because a public test host under load rate-limits or silently drops some connection attempts instead of sending back an explicit refusal for every one.
+
 ## Testing
 
 - **Local test servers** were used to check every result type: one server that announces itself immediately (SSH-style), one that only answers an HTTP request, a closed port, and a port that never answers (reported as filtered).
